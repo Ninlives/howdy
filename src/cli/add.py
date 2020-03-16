@@ -33,7 +33,7 @@ if not os.path.isfile(path + "/../dlib-data/shape_predictor_5_face_landmarks.dat
 
 # Read config from disk
 config = configparser.ConfigParser()
-config.read(path + "/../config.ini")
+config.read("/etc/howdy.ini")
 
 if not os.path.exists(config.get("video", "device_path")):
 	print("Camera path is not configured correctly, please edit the 'device_path' config value.")
@@ -50,14 +50,14 @@ face_encoder = dlib.face_recognition_model_v1(path + "/../dlib-data/dlib_face_re
 
 user = builtins.howdy_user
 # The permanent file to store the encoded model in
-enc_file = path + "/../models/" + user + ".dat"
+enc_file = "/var/lib/howdy/models/" + user + ".dat"
 # Known encodings
 encodings = []
 
 # Make the ./models folder if it doesn't already exist
-if not os.path.exists(path + "/../models"):
+if not os.path.exists("/var/lib/howdy/models"):
 	print("No face model folder found, creating one")
-	os.makedirs(path + "/../models")
+	os.makedirs("/var/lib/howdy/models", mode=0o655)
 
 # To try read a premade encodings file if it exists
 try:

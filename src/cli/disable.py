@@ -9,7 +9,7 @@ import fileinput
 import configparser
 
 # Get the absolute filepath
-config_path = os.path.dirname(os.path.abspath(__file__)) + "/../config.ini"
+config_path = "/etc/howdy.ini"
 
 # Read config from disk
 config = configparser.ConfigParser()
