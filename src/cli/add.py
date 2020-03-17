@@ -57,7 +57,7 @@ encodings = []
 # Make the ./models folder if it doesn't already exist
 if not os.path.exists("/var/lib/howdy/models"):
 	print("No face model folder found, creating one")
-	os.makedirs("/var/lib/howdy/models", mode=0o655)
+	os.makedirs("/var/lib/howdy/models", mode=0o700)
 
 # To try read a premade encodings file if it exists
 try:

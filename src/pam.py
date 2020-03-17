@@ -36,13 +36,14 @@ def doAuth(pamh):
 		pamh.conversation(pamh.Message(pamh.PAM_TEXT_INFO, "Attempting face detection"))
 
 	# Run compare as python3 subprocess to circumvent python version and import issues
-        puid = os.getuid()
-        pgid = os.getgid()
-        def setguid():
-            os.setuid(puid)
-            os.setgid(pgid)
+        euid = os.geteuid()
+        egid = os.getegid()
 
-	process = subprocess.Popen(["/usr/bin/python3", os.path.dirname(os.path.abspath(__file__)) + "/compare.py", pamh.get_user()], preexec_fn = setguid)
+        def setperm():
+            os.setuid(euid)
+            os.setgid(egid)
+
+	process = subprocess.Popen(["/usr/bin/python3", os.path.dirname(os.path.abspath(__file__)) + "/compare.py", pamh.get_user()], preexec_fn = setperm)
         process.wait()
         status = process.returncode
 
